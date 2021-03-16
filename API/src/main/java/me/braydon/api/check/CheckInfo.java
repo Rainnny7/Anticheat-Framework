@@ -28,7 +28,7 @@ public @interface CheckInfo {
      * @return the type
      * @see CheckType
      */
-    @NonNull CheckType type();
+    CheckType type();
 
     /**
      * Whether or not this check is experimental.
