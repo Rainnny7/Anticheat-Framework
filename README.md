@@ -1,5 +1,8 @@
 # Anticheat-Framework
 
+## Javadocs
+See [here](https://rainnny7.github.io/Anticheat-Framework).
+
 ## Dependencies
 * **Lombok** - 1.18.12
 * **Paperspigot** - 1.7.x - 1.16.x
