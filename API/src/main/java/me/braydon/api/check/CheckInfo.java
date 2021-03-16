@@ -20,7 +20,7 @@ public @interface CheckInfo {
      *
      * @return the display name
      */
-    @NonNull String name();
+    String name();
 
     /**
      * The type of the check.
