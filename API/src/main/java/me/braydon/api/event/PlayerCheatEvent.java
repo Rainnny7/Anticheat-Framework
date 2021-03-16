@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.braydon.api.check.CheckInfo;
+import me.braydon.api.player.Violation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -30,9 +31,7 @@ public class PlayerCheatEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
 
     private final @NonNull Player player;
-    private final @NonNull CheckInfo checkInfo;
-    private final @NonNull String[] data;
-    private final int violations;
+    private final @NonNull Violation violation;
     private boolean cancelled;
 
     @Override

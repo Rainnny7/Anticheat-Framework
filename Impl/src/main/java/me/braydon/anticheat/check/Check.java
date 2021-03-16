@@ -6,10 +6,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import me.braydon.anticheat.Anticheat;
+import me.braydon.anticheat.meta.MetadataManager;
 import me.braydon.anticheat.player.PlayerData;
 import me.braydon.api.check.CheckInfo;
 import me.braydon.api.event.PlayerCheatEvent;
 import me.braydon.api.event.PlayerPunishEvent;
+import me.braydon.api.player.Violation;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -60,7 +62,18 @@ public class Check {
     protected final void flag(String... data) {
         violations++;
 
-        PlayerCheatEvent playerCheatEvent = new PlayerCheatEvent(player, checkInfo, data, violations);
+        Violation violation = new Violation(
+                checkInfo,
+                data,
+                violations,
+                player.getLocation(),
+                playerData.packetProcessor.ping,
+                Anticheat.INSTANCE.getRecentTps()[0],
+                System.currentTimeMillis()
+        );
+        playerData.addViolation(violation);
+
+        PlayerCheatEvent playerCheatEvent = new PlayerCheatEvent(player, violation);
         Bukkit.getPluginManager().callEvent(playerCheatEvent);
         if (playerCheatEvent.isCancelled())
             return;
@@ -75,6 +88,10 @@ public class Check {
         }
         if (violations >= checkInfo.maxVl() && checkInfo.ban() && !checkInfo.experimental() && !playerData.isBanned()) {
             playerData.setBanned(true);
+
+            String metadataJson = MetadataManager.getMetadataJson(playerData);
+            Anticheat.INSTANCE.getLogger().info(player.getName() + " was banned for cheating (" + checkInfo.name() + "): " + metadataJson);
+
             Bukkit.getPluginManager().callEvent(new PlayerPunishEvent(playerCheatEvent));
             Bukkit.getScheduler().runTask(Anticheat.INSTANCE, () -> player.kickPlayer("[AC] Unfair Advantage"));
         }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import me.braydon.anticheat.check.Check;
 import me.braydon.anticheat.check.CheckManager;
 import me.braydon.anticheat.processor.impl.PacketProcessor;
+import me.braydon.api.player.Violation;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -27,6 +28,7 @@ public class PlayerData {
     private static final Map<UUID, PlayerData> dataMap = new HashMap<>();
 
     private final UUID uuid;
+    private final long timeCreated;
 
     // Processors and checks
     @Getter(AccessLevel.NONE) public PacketProcessor packetProcessor;
@@ -43,6 +45,7 @@ public class PlayerData {
      * extremePrejudice - When a player is flagged as an extreme prejudice it means that the player
      *                    has been punished on that ip address before.
      */
+    private final List<Violation> violations = new ArrayList<>();
     @Setter private boolean extremePrejudice, banned;
 
     /**
@@ -54,6 +57,7 @@ public class PlayerData {
      */
     public PlayerData(@NonNull Player player) {
         uuid = player.getUniqueId();
+        timeCreated = System.currentTimeMillis();
         packetProcessor = new PacketProcessor(this);
         for (Class<? extends Check> checkClass : CheckManager.CHECK_CLASSES) {
             try {
@@ -110,6 +114,22 @@ public class PlayerData {
      */
     public boolean isDebugging() {
         return debuggingTarget != null;
+    }
+
+    /**
+     * Add the provided violation to the violations list.
+     * <p>
+     * When a violation is added, we check if the violations
+     * list is the size of 50 or above and we remove the first
+     * violation element from the list.
+     *
+     * @param violation the violation to add
+     * @see Violation
+     */
+    public void addViolation(Violation violation) {
+        violations.add(violation);
+        if (violations.size() >= 50)
+            violations.remove(0);
     }
 
     /**

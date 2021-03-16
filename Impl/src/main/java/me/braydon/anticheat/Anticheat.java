@@ -17,6 +17,7 @@ public class Anticheat extends JavaPlugin {
     public static Anticheat INSTANCE;
 
     private PacketEvents packetEvents;
+    private double[] recentTps;
 
     @Override
     public void onLoad() {
@@ -28,6 +29,11 @@ public class Anticheat extends JavaPlugin {
     @Override
     public void onEnable() {
         packetEvents.init(new PacketEventsSettings().checkForUpdates(false));
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            recentTps = packetEvents.getServerUtils().getRecentTPS();
+        }, 0L, 20L);
+
         new PlayerDataManager(this);
     }
 

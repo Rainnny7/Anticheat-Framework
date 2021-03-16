@@ -14,6 +14,6 @@ import lombok.Setter;
 @Setter @Getter
 public class PlayerPunishEvent extends PlayerCheatEvent {
     public PlayerPunishEvent(@NonNull PlayerCheatEvent playerCheatEvent) {
-        super(playerCheatEvent.getPlayer(), playerCheatEvent.getCheckInfo(), playerCheatEvent.getData(), playerCheatEvent.getViolations());
+        super(playerCheatEvent.getPlayer(), playerCheatEvent.getViolation());
     }
 }
