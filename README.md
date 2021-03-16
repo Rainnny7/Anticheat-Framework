@@ -1,6 +1,6 @@
 # Anticheat-Framework
 
-## Javadocs
+## Javadoc
 See [here](https://rainnny7.github.io/Anticheat-Framework).
 
 ## Dependencies
