@@ -14,7 +14,7 @@ import me.braydon.api.check.CheckType;
  *
  * @author Braydon
  */
-@CheckInfo(name = "Test (A)", type = CheckType.TEST, experimental = true)
+@CheckInfo(name = "Test (A)", type = CheckType.TEST)
 public class TestA extends Check {
     public TestA(@NonNull PlayerData playerData) throws ClassNotFoundException {
         super(playerData);

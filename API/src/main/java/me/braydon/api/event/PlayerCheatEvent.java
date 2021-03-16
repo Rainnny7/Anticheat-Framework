@@ -19,11 +19,11 @@ import org.jetbrains.annotations.NotNull;
  * the API - If this framework was to ever be used for a paid product, the end user shouldn't be able to view
  * the check as it may expose information on how the check works.
  *
+ * @author Braydon
  * @see Event
  * @see Cancellable
  * @see Player
  * @see CheckInfo
- * @author Braydon
  */
 @RequiredArgsConstructor @Setter @Getter
 public class PlayerCheatEvent extends Event implements Cancellable {

@@ -1,7 +1,5 @@
 package me.braydon.api.check;
 
-import lombok.NonNull;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

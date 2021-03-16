@@ -37,8 +37,13 @@ public class PlayerData {
     private Class<? extends Check> debuggingCheck; // The class of the check to debug for the target
     private boolean packetSniffing; // Whether or not the player is sniffing packets
 
-    // Other data
-    @Setter private boolean banned;
+    /**
+     * Other Data
+     *
+     * extremePrejudice - When a player is flagged as an extreme prejudice it means that the player
+     *                    has been punished on that ip address before.
+     */
+    @Setter private boolean extremePrejudice, banned;
 
     /**
      * Construct a new player data object for the provided player and cache it in the data map so
