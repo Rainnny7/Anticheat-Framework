@@ -6,6 +6,8 @@ import me.braydon.api.check.CheckInfo;
 import org.bukkit.Location;
 
 /**
+ * A violation is created and stored in a player's playerdata when they are flagged by a check.
+ *
  * @author Braydon
  */
 @AllArgsConstructor @Getter
