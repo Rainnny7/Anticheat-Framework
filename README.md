@@ -3,7 +3,7 @@
 ## Dependencies
 * **Lombok** - 1.18.12
 * **Paperspigot** - 1.7.x - 1.16.x
-* **PacketEvents** - v1.8-pre-9 ([See Here](README.md#credits-and-references))
+* **PacketEvents** - v1.8-pre-9 ([See Here](README.md#credits))
 
 ## Compiling
 1. Clone this repository
