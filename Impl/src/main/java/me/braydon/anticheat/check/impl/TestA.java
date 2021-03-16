@@ -3,6 +3,7 @@ package me.braydon.anticheat.check.impl;
 import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.NMSPacket;
 import io.github.retrooper.packetevents.packetwrappers.play.in.chat.WrappedPacketInChat;
+import lombok.NonNull;
 import me.braydon.anticheat.check.Check;
 import me.braydon.anticheat.player.PlayerData;
 import me.braydon.api.check.CheckInfo;
@@ -15,12 +16,12 @@ import me.braydon.api.check.CheckType;
  */
 @CheckInfo(name = "Test (A)", type = CheckType.TEST, experimental = true)
 public class TestA extends Check {
-    public TestA(PlayerData playerData) throws ClassNotFoundException {
+    public TestA(@NonNull PlayerData playerData) throws ClassNotFoundException {
         super(playerData);
     }
 
     @Override
-    public void handle(byte packetId, NMSPacket nmsPacket, Object packet) {
+    public void handle(byte packetId, @NonNull NMSPacket nmsPacket, @NonNull Object packet) {
         if (packetId == PacketType.Play.Client.CHAT) {
             WrappedPacketInChat wrappedPacketInChat = new WrappedPacketInChat(nmsPacket);
             if (wrappedPacketInChat.getMessage().equalsIgnoreCase("test"))

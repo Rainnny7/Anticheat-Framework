@@ -5,6 +5,7 @@ import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import io.github.retrooper.packetevents.event.impl.PacketPlaySendEvent;
 import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.NMSPacket;
+import lombok.NonNull;
 import me.braydon.anticheat.Anticheat;
 import me.braydon.anticheat.check.Check;
 import me.braydon.anticheat.player.PlayerData;
@@ -20,7 +21,7 @@ public class PacketProcessor extends Processor {
     public int ping;
     public long lastFlying;
 
-    public PacketProcessor(PlayerData playerData) {
+    public PacketProcessor(@NonNull PlayerData playerData) {
         super(playerData);
     }
 
@@ -59,7 +60,7 @@ public class PacketProcessor extends Processor {
      * @see Check
      * @see CancellableNMSPacketEvent
      */
-    private void handleChecks(CancellableNMSPacketEvent nmsPacketEvent) {
+    private void handleChecks(@NonNull CancellableNMSPacketEvent nmsPacketEvent) {
         NMSPacket nmsPacket = nmsPacketEvent.getNMSPacket();
         playerData.getChecks().parallelStream().forEach(check -> check.handle(nmsPacketEvent.getPacketId(), nmsPacket, nmsPacket.getRawNMSPacket()));
     }

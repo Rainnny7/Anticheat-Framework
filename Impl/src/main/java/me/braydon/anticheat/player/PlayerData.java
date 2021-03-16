@@ -2,6 +2,7 @@ package me.braydon.anticheat.player;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import me.braydon.anticheat.check.Check;
 import me.braydon.anticheat.check.CheckManager;
@@ -17,6 +18,12 @@ import java.util.*;
  */
 @Getter
 public class PlayerData {
+    /**
+     * The map of cached player data. The key is the player's uuid and the value is the player data object
+     * for that player.
+     *
+     * @see Player
+     */
     private static final Map<UUID, PlayerData> dataMap = new HashMap<>();
 
     private final UUID uuid;
@@ -24,6 +31,11 @@ public class PlayerData {
     // Processors and checks
     @Getter(AccessLevel.NONE) public PacketProcessor packetProcessor;
     private final List<Check> checks = new ArrayList<>();
+
+    // Debugging
+    private UUID debuggingTarget; // The uuid of the player to debug
+    private Class<? extends Check> debuggingCheck; // The class of the check to debug for the target
+    private boolean packetSniffing; // Whether or not the player is sniffing packets
 
     // Other data
     @Setter private boolean banned;
@@ -35,7 +47,7 @@ public class PlayerData {
      * @param player the player to construct the data for
      * @see Player
      */
-    public PlayerData(Player player) {
+    public PlayerData(@NonNull Player player) {
         uuid = player.getUniqueId();
         packetProcessor = new PacketProcessor(this);
         for (Class<? extends Check> checkClass : CheckManager.CHECK_CLASSES) {
@@ -59,13 +71,50 @@ public class PlayerData {
     }
 
     /**
+     * Start packet sniffing for the target player.
+     *
+     * @param targetUuid the uuid of the player to debug
+     * @see Player
+     */
+    public void startDebugging(@NonNull UUID targetUuid) {
+        startDebugging(targetUuid, null);
+    }
+
+    /**
+     * Start debugging for the target player with the target check class.
+     * <p>
+     * The player is identified by their uuid and the check class is nullable
+     * to allow for packet sniffing. If the check class is null, packet sniffing
+     * will be enabled.
+     *
+     * @param targetUuid the uuid of the player to debug
+     * @param targetCheckClass the class of the check to debug
+     * @see Player
+     * @see Check
+     */
+    public void startDebugging(@NonNull UUID targetUuid, Class<? extends Check> targetCheckClass) {
+        debuggingTarget = targetUuid;
+        debuggingCheck = targetCheckClass;
+        packetSniffing = debuggingCheck == null;
+    }
+
+    /**
+     * Check whether or not the player is debugging
+     *
+     * @return the debugging status
+     */
+    public boolean isDebugging() {
+        return debuggingTarget != null;
+    }
+
+    /**
      * Get the player data for the provided player
      *
      * @param player the player to get the player data for
      * @return the player data if found, otherwise null
      * @see Player
      */
-    public static PlayerData get(Player player) {
+    public static PlayerData get(@NonNull Player player) {
         return dataMap.get(player.getUniqueId());
     }
 
@@ -77,7 +126,7 @@ public class PlayerData {
      * @param player the player to cleanup the player data for
      * @see Player
      */
-    public static void cleanup(Player player) {
+    public static void cleanup(@NonNull Player player) {
         PlayerData playerData = dataMap.remove(player.getUniqueId());
         if (playerData == null)
             throw new NullPointerException("Player does not have player data to cleanup: " + player.getName());

@@ -1,5 +1,7 @@
 package me.braydon.api.check;
 
+import lombok.NonNull;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,7 +20,7 @@ public @interface CheckInfo {
      *
      * @return the display name
      */
-    String name();
+    @NonNull String name();
 
     /**
      * The type of the check.
@@ -26,7 +28,7 @@ public @interface CheckInfo {
      * @return the type
      * @see CheckType
      */
-    CheckType type();
+    @NonNull CheckType type();
 
     /**
      * Whether or not this check is experimental.

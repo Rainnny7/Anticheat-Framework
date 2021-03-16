@@ -1,6 +1,7 @@
 package me.braydon.api.event;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Setter;
  */
 @Setter @Getter
 public class PlayerPunishEvent extends PlayerCheatEvent {
-    public PlayerPunishEvent(PlayerCheatEvent playerCheatEvent) {
+    public PlayerPunishEvent(@NonNull PlayerCheatEvent playerCheatEvent) {
         super(playerCheatEvent.getPlayer(), playerCheatEvent.getCheckInfo(), playerCheatEvent.getData(), playerCheatEvent.getViolations());
     }
 

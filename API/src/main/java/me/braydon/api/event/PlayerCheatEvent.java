@@ -1,6 +1,7 @@
 package me.braydon.api.event;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.braydon.api.check.CheckInfo;
@@ -28,9 +29,9 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerCheatEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
 
-    private final Player player;
-    private final CheckInfo checkInfo;
-    private final String[] data;
+    private final @NonNull Player player;
+    private final @NonNull CheckInfo checkInfo;
+    private final @NonNull String[] data;
     private final int violations;
     private boolean cancelled;
 

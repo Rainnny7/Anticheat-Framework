@@ -4,6 +4,7 @@ import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.NMSPacket;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import me.braydon.anticheat.Anticheat;
 import me.braydon.anticheat.player.PlayerData;
 import me.braydon.api.check.CheckInfo;
@@ -30,7 +31,7 @@ public class Check {
 
     @Getter(AccessLevel.NONE) private int violations;
 
-    public Check(PlayerData playerData) throws ClassNotFoundException {
+    public Check(@NonNull PlayerData playerData) throws ClassNotFoundException {
         this.playerData = playerData;
         if (!getClass().isAnnotationPresent(CheckInfo.class))
             throw new ClassNotFoundException("Check is missing @CheckInfo annotation");
@@ -47,7 +48,7 @@ public class Check {
      * @see PacketType
      * @see NMSPacket
      */
-    public void handle(byte packetId, NMSPacket nmsPacket, Object packet) {}
+    public void handle(byte packetId, @NonNull NMSPacket nmsPacket, @NonNull Object packet) {}
 
     /**
      * This method is used to flag the player with the given data.

@@ -1,5 +1,6 @@
 package me.braydon.anticheat.player;
 
+import lombok.NonNull;
 import me.braydon.anticheat.Anticheat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * @author Braydon
  */
 public class PlayerDataManager implements Listener {
-    public PlayerDataManager(Anticheat plugin) {
+    public PlayerDataManager(@NonNull Anticheat plugin) {
         // When this class is initialized, we loop over all online players
         // and construct a new player data object for them. The purpose of
         // this is to support server reloads.

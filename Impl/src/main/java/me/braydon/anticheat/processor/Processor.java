@@ -3,6 +3,7 @@ package me.braydon.anticheat.processor;
 import io.github.retrooper.packetevents.event.PacketListenerDynamic;
 import io.github.retrooper.packetevents.event.priority.PacketEventPriority;
 import io.github.retrooper.packetevents.packetwrappers.NMSPacket;
+import lombok.NonNull;
 import me.braydon.anticheat.Anticheat;
 import me.braydon.anticheat.player.PlayerData;
 import me.braydon.anticheat.processor.impl.PacketProcessor;
@@ -23,7 +24,7 @@ import org.bukkit.event.Listener;
 public class Processor extends PacketListenerDynamic implements Listener {
     protected final PlayerData playerData;
 
-    public Processor(PlayerData playerData) {
+    public Processor(@NonNull PlayerData playerData) {
         super(PacketEventPriority.LOWEST);
         this.playerData = playerData;
         Anticheat.INSTANCE.getPacketEvents().getEventManager().registerListener(this);
