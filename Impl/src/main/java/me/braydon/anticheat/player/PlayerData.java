@@ -71,7 +71,7 @@ public class PlayerData {
      * @return the Bukkit player
      * @see Player
      */
-    public Player getBukkitPlayer() {
+    public @NonNull Player getBukkitPlayer() {
         return Bukkit.getPlayer(uuid);
     }
 
