@@ -108,7 +108,16 @@ public class PlayerData {
     }
 
     /**
-     * Check whether or not the player is debugging
+     * Check whether or not the player is sniffing packets.
+     *
+     * @return the packet sniffing status
+     */
+    public boolean isPacketSniffing() {
+        return isDebugging() && packetSniffing;
+    }
+
+    /**
+     * Check whether or not the player is debugging.
      *
      * @return the debugging status
      */
