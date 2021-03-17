@@ -21,7 +21,7 @@ public class TestA extends Check {
     }
 
     @Override
-    public void handle(byte packetId, @NonNull NMSPacket nmsPacket, @NonNull Object packet) {
+    public void handle(byte packetId, @NonNull NMSPacket nmsPacket, @NonNull Object packet, long timestamp) {
         if (packetId == PacketType.Play.Client.CHAT) {
             WrappedPacketInChat wrappedPacketInChat = new WrappedPacketInChat(nmsPacket);
             if (wrappedPacketInChat.getMessage().equalsIgnoreCase("test"))

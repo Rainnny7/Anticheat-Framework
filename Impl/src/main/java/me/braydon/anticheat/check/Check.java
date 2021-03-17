@@ -47,10 +47,11 @@ public class Check {
      * @param packetId the id of the packet
      * @param nmsPacket the nms packet
      * @param packet the raw nms packet
+     * @param timestamp the timestamp the packet was handled
      * @see PacketType
      * @see NMSPacket
      */
-    public void handle(byte packetId, @NonNull NMSPacket nmsPacket, @NonNull Object packet) {}
+    public void handle(byte packetId, @NonNull NMSPacket nmsPacket, @NonNull Object packet, long timestamp) {}
 
     /**
      * This method is used to flag the player with the given data.

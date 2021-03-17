@@ -157,5 +157,6 @@ public class PlayerData {
             throw new NullPointerException("Player does not have player data to cleanup: " + player.getName());
         playerData.packetProcessor = null;
         playerData.getChecks().clear();
+        playerData.getViolations().clear();
     }
 }

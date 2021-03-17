@@ -62,6 +62,7 @@ public class PacketProcessor extends Processor {
      */
     private void handleChecks(@NonNull CancellableNMSPacketEvent nmsPacketEvent) {
         NMSPacket nmsPacket = nmsPacketEvent.getNMSPacket();
-        playerData.getChecks().parallelStream().forEach(check -> check.handle(nmsPacketEvent.getPacketId(), nmsPacket, nmsPacket.getRawNMSPacket()));
+        playerData.getChecks().parallelStream().forEach(check ->
+                check.handle(nmsPacketEvent.getPacketId(), nmsPacket, nmsPacket.getRawNMSPacket(), System.currentTimeMillis()));
     }
 }
