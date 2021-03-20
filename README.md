@@ -1,4 +1,5 @@
 # Anticheat-Framework
+This is not an anticheat. The purpose of this framework is to give developers a base to work off of when making an anticheat so they have an idea on how to get started.
 
 ## Javadoc
 See [here](https://rainnny7.github.io/Anticheat-Framework).
