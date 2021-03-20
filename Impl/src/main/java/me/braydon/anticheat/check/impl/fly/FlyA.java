@@ -21,13 +21,16 @@ public class FlyA extends Check {
 
     @Override
     public void handle(MovementData movementData, long timestamp) {
+        if (movementData.isDescending())
+            return;
         double deltaY = playerData.movementProcessor.deltaY;
         double maxDeltaY = 0.43;
 
         int jumpBoostLevel = playerData.getPotionEffectLevel(PotionEffectType.JUMP);
         maxDeltaY+= jumpBoostLevel * 0.12;
 
-        if (movementData.isAscending() && deltaY >= maxDeltaY)
+        if (deltaY >= maxDeltaY)
             flag(deltaY + ">=" + maxDeltaY);
+        debug("dY=" + deltaY, "maxDy=" + maxDeltaY, "jumpLevel=" + jumpBoostLevel);
     }
 }

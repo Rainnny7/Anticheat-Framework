@@ -66,11 +66,28 @@ public class Check {
     public void handle(MovementData movementData, long timestamp) {}
 
     /**
+     * This method is used to debug the check with the given data.
+     *
+     * @param data the data to include in the debug
+     */
+    protected final void debug(String... data) {
+        if (data.length < 1)
+            throw new IllegalArgumentException("Cannot debug with no data");
+        String message = ChatColor.stripColor(String.join(", ", data)).trim();
+        for (Player debugger : Bukkit.getOnlinePlayers()) {
+            PlayerData debuggerPlayerData = PlayerData.get(debugger);
+            if (!debuggerPlayerData.isDebugging(playerData, getClass()))
+                continue;
+            debugger.sendMessage("§8[§cDEBUG§8] §7" + message);
+        }
+    }
+
+    /**
      * This method is used to flag the player with the given data.
      * <p>
      * When a player is flagged, all online staff members are alerted with the check they flagged and the data
      *
-     * @param data
+     * @param data the optional data to include in the flag
      */
     protected final void flag(String... data) {
         violations++;

@@ -22,4 +22,19 @@ public class CheckManager {
             // Fly
             FlyA.class
     ));
+
+    /**
+     * Get the check class with the given class name
+     *
+     * @param name the name of the class
+     * @return the check with the given name if found, otherwise null
+     */
+    public static Class<? extends Check> getCheckClass(String name) {
+        for (Class<? extends Check> checkClass : CHECK_CLASSES) {
+            if (checkClass.getSimpleName().equalsIgnoreCase(name)) {
+                return checkClass;
+            }
+        }
+        return null;
+    }
 }

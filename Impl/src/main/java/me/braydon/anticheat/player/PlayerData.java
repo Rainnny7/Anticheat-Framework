@@ -122,12 +122,32 @@ public class PlayerData {
     }
 
     /**
+     * Check whether or not the player is debugging the target player data and the target check class.
+     *
+     * @param target the target player data
+     * @param targetCheckClass the target check class
+     * @return the debugging status
+     * @see Check
+     */
+    public boolean isDebugging(PlayerData target, Class<? extends Check> targetCheckClass) {
+        return isDebugging() && (debuggingTarget.equals(target.getUuid()) && debuggingCheck.equals(targetCheckClass));
+    }
+
+    /**
      * Check whether or not the player is debugging.
      *
      * @return the debugging status
      */
     public boolean isDebugging() {
         return debuggingTarget != null;
+    }
+
+    /**
+     * Stop debugging.
+     */
+    public void stopDebugging() {
+        debuggingTarget = null;
+        debuggingCheck = null;
     }
 
     /**

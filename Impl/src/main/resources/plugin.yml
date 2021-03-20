@@ -2,3 +2,7 @@ name: Anticheat-Framework
 main: me.braydon.anticheat.Anticheat
 version: 1.0
 author: Braydon (Rainnny)
+commands:
+  anticheat:
+    aliases: [ac]
+    description: "The main command for the Anticheat framework"
