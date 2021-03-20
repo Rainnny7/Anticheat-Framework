@@ -1,6 +1,7 @@
 package me.braydon.anticheat.check;
 
-import me.braydon.anticheat.check.impl.TestA;
+import me.braydon.anticheat.check.impl.fly.FlyA;
+import me.braydon.anticheat.check.impl.test.TestA;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +16,10 @@ public class CheckManager {
      * @see Check
      */
     public static final List<Class<? extends Check>> CHECK_CLASSES = Collections.unmodifiableList(Arrays.asList(
-            TestA.class
+            // Test
+            TestA.class,
+
+            // Fly
+            FlyA.class
     ));
 }

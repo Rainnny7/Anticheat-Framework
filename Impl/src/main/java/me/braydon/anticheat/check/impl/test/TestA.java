@@ -1,4 +1,4 @@
-package me.braydon.anticheat.check.impl;
+package me.braydon.anticheat.check.impl.test;
 
 import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.NMSPacket;

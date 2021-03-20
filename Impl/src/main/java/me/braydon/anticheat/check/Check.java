@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import me.braydon.anticheat.Anticheat;
+import me.braydon.anticheat.common.MovementData;
 import me.braydon.anticheat.meta.MetadataManager;
 import me.braydon.anticheat.player.PlayerData;
 import me.braydon.api.check.CheckInfo;
@@ -14,6 +15,7 @@ import me.braydon.api.event.PlayerPunishEvent;
 import me.braydon.api.player.Violation;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -52,6 +54,16 @@ public class Check {
      * @see NMSPacket
      */
     public void handle(byte packetId, @NonNull NMSPacket nmsPacket, @NonNull Object packet, long timestamp) {}
+
+    /**
+     * This method is fired when the player moves.
+     *
+     * @param movementData the data of the movement
+     * @param timestamp the timestamp the movement was handled
+     * @see Location
+     * @see MovementData
+     */
+    public void handle(MovementData movementData, long timestamp) {}
 
     /**
      * This method is used to flag the player with the given data.

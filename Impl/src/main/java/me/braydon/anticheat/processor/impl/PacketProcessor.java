@@ -28,7 +28,7 @@ public class PacketProcessor extends Processor {
     @Override
     public void onPacketPlayReceive(PacketPlayReceiveEvent event) {
         Player player = event.getPlayer();
-        if (!player.equals(playerData.getBukkitPlayer()))
+        if (!player.getUniqueId().equals(playerData.getBukkitPlayer().getUniqueId()))
             return;
         // Processing data from the received packet
         switch (event.getPacketId()) {
@@ -47,7 +47,7 @@ public class PacketProcessor extends Processor {
 
     @Override
     public void onPacketPlaySend(PacketPlaySendEvent event) {
-        if (!event.getPlayer().equals(playerData.getBukkitPlayer()))
+        if (!event.getPlayer().getUniqueId().equals(playerData.getBukkitPlayer().getUniqueId()))
             return;
         // Handling the sent packet for all of the checks
         handleChecks(event);
@@ -62,7 +62,8 @@ public class PacketProcessor extends Processor {
      */
     private void handleChecks(@NonNull CancellableNMSPacketEvent nmsPacketEvent) {
         NMSPacket nmsPacket = nmsPacketEvent.getNMSPacket();
+        long timestamp = System.currentTimeMillis();
         playerData.getChecks().parallelStream().forEach(check ->
-                check.handle(nmsPacketEvent.getPacketId(), nmsPacket, nmsPacket.getRawNMSPacket(), System.currentTimeMillis()));
+                check.handle(nmsPacketEvent.getPacketId(), nmsPacket, nmsPacket.getRawNMSPacket(), timestamp));
     }
 }

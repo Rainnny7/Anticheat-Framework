@@ -8,5 +8,5 @@ package me.braydon.api.check;
  * @see CheckInfo
  */
 public enum CheckType {
-    TEST
+    TEST, FLY
 }

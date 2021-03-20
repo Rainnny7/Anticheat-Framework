@@ -6,10 +6,13 @@ import lombok.NonNull;
 import lombok.Setter;
 import me.braydon.anticheat.check.Check;
 import me.braydon.anticheat.check.CheckManager;
+import me.braydon.anticheat.processor.impl.MovementProcessor;
 import me.braydon.anticheat.processor.impl.PacketProcessor;
 import me.braydon.api.player.Violation;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -32,6 +35,7 @@ public class PlayerData {
 
     // Processors and checks
     @Getter(AccessLevel.NONE) public PacketProcessor packetProcessor;
+    @Getter(AccessLevel.NONE) public MovementProcessor movementProcessor;
     private final List<Check> checks = new ArrayList<>();
 
     // Debugging
@@ -59,6 +63,7 @@ public class PlayerData {
         uuid = player.getUniqueId();
         timeCreated = System.currentTimeMillis();
         packetProcessor = new PacketProcessor(this);
+        movementProcessor = new MovementProcessor(this);
         for (Class<? extends Check> checkClass : CheckManager.CHECK_CLASSES) {
             try {
                 checks.add(checkClass.getConstructor(PlayerData.class).newInstance(this));
@@ -139,6 +144,34 @@ public class PlayerData {
         violations.add(violation);
         if (violations.size() >= 50)
             violations.remove(0);
+    }
+
+    /**
+     * Get the potion effect level for the provided potion effect type.
+     *
+     * @param potionEffectType the type of effect to get the level for
+     * @return the level, 0 if not active
+     */
+    public int getPotionEffectLevel(PotionEffectType potionEffectType) {
+        PotionEffect potionEffect = getPotionEffect(potionEffectType);
+        return potionEffect == null ? 0 : potionEffect.getAmplifier() + 1;
+    }
+
+    /**
+     * Get the active potion effect with the provided potion effect type for the player.
+     *
+     * @param potionEffectType the type of effect to get
+     * @return the potion effect if present, otherwise null
+     * @see PotionEffect
+     * @see PotionEffectType
+     */
+    public PotionEffect getPotionEffect(PotionEffectType potionEffectType) {
+        for (PotionEffect potionEffect : getBukkitPlayer().getActivePotionEffects()) {
+            if (potionEffect.getType().equals(potionEffectType)) {
+                return potionEffect;
+            }
+        }
+        return null;
     }
 
     /**
