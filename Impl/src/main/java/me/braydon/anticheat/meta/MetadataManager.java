@@ -27,6 +27,7 @@ public class MetadataManager {
     private static final Gson GSON = new GsonBuilder()
             .serializeNulls()
             .setPrettyPrinting()
+            .disableHtmlEscaping()
             .create();
 
     /**
